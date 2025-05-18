@@ -1,6 +1,6 @@
 [build]
-  command = "npm run build"
-  publish = "dist"
+  command = "cd client && npx vite build && cd .. && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist"
+  publish = "dist/public"
 
 # Redirect all requests to index.html for SPA routing
 [[redirects]]

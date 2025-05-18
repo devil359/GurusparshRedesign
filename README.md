@@ -32,8 +32,30 @@ A modern redesign of the Gurusparsh Resort website that preserves its agricultur
    ```
 
 3. Run the development server
+
+   **Windows:**
    ```
-   npm run dev
+   run-local.bat
+   ```
+   
+   **macOS/Linux:**
+   ```
+   chmod +x run-local.sh
+   ./run-local.sh
+   ```
+   
+   Or manually set environment:
+   ```
+   # Windows (CMD)
+   set NODE_ENV=development
+   npx tsx server/index.ts
+   
+   # Windows (PowerShell)
+   $env:NODE_ENV="development"
+   npx tsx server/index.ts
+   
+   # macOS/Linux
+   NODE_ENV=development npx tsx server/index.ts
    ```
 
 4. Open [http://localhost:5000](http://localhost:5000) in your browser
@@ -57,16 +79,30 @@ This project can be deployed on various platforms:
 The repository includes a `netlify.toml` file for easy deployment on Netlify.
 
 1. Connect your GitHub repository to Netlify
-2. Use the following build settings:
-   - Build command: `npm run build`
-   - Publish directory: `dist`
+2. Netlify will automatically detect the configuration in `netlify.toml`
+3. The build settings are already configured:
+   - Build command: `cd client && npx vite build && cd .. && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist`
+   - Publish directory: `dist/public`
 
 #### Vercel
 
 The repository includes a `vercel.json` file for Vercel deployment.
 
 1. Connect your GitHub repository to Vercel
-2. Vercel will automatically detect the configuration
+2. Vercel will automatically detect the configuration in `vercel.json`
+3. The build settings are already configured to build the client-side application
+
+#### Manual Deployment
+
+If you prefer to deploy manually:
+
+1. Build the application:
+   ```
+   cd client && npx vite build && cd ..
+   esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+   ```
+
+2. Deploy the `dist/public` directory to your hosting provider of choice
 
 ## Project Structure
 
